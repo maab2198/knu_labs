@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<studentsDataBase>
+  <faculty  FNAME="Факультет кібернетики">
+    <course COURSE="1">
+      <speciality  SPEC ="Інформатика" >
+	   <department>
+        <group GROUP="K-14">
+          <student 
+               NAME="Воробйова Аліна Ігорівна"
+               IDCARD="KNUCB001">
+			<subject 
+						SUB ="Вступ до університетських студій"
+						TESTTYPE="Залік"
+						MARK="60"
+						
+						TYPEMARK="зараховано">
+			</subject>
+			   <subject SUB ="Математичний аналіз"
+						TESTTYPE="Екзамен"
+						MARK="90"
+					
+						TYPEMARK="відмінно">
+				</subject>
+				
+				<subject SUB ="Програмування"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+				</subject>
+				
+			</student>
+          <student 
+                NAME="Ремньов Владислав Геннадійович"
+                IDCARD="KNUCB002">
+				<subject SUB ="Вступ до університетських студій"
+						TESTTYPE="Залік"
+						MARK="90"
+					
+						TYPEMARK="зараховано">
+				</subject>
+			   <subject SUB ="Математичний аналіз"
+						TESTTYPE="Екзамен"
+						MARK="70"
+						
+						TYPEMARK="задовільно">
+				</subject>
+				
+				<subject SUB ="Програмування"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+				</subject>
+                
+          </student>
+        </group>
+		  <group GROUP="K-15">
+          <student 
+               NAME="Баторі Олександр Олександрович"
+               IDCARD="KNUCB001">
+			<subject 
+						SUB ="Вступ до університетських студій"
+						TESTTYPE="Залік"
+						MARK="60"
+						
+						TYPEMARK="зараховано">
+			</subject>
+			   <subject SUB ="Математичний аналіз"
+						TESTTYPE="Екзамен"
+						MARK="90"
+						
+						TYPEMARK="відмінно">
+				</subject>
+				
+				<subject SUB ="Програмування"
+						TESTTYPE="Екзамен"
+						MARK="86"
+					
+						TYPEMARK="добре">
+				</subject>
+				
+			</student>
+          <student 
+                NAME="Сергієнко Тетяна Олександрівна"
+                IDCARD="KNUCB002">
+				<subject SUB ="Вступ до університетських студій"
+						TESTTYPE="Залік"
+						MARK="90"
+						
+						TYPEMARK="зараховано">
+				</subject>
+			   <subject SUB ="Математичний аналіз"
+						TESTTYPE="Екзамен"
+						MARK="70"
+						
+						TYPEMARK="задовільно">
+				</subject>
+				
+				<subject SUB ="Програмування"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+				</subject>
+                
+          </student>
+        </group>
+		</department>
+      </speciality>
+    </course>
+
+     <course COURSE="3">
+      <speciality  SPEC ="Прикладна математика" >
+	  <department DEP  ="Обчислювальна математика">
+        <group GROUP="ОМ-3">
+          <student 
+               NAME="Прокопець Вадим Георгійович"
+               IDCARD="KNUCB005">
+			<subject 
+						SUB ="Теорія ймовірностей та математична статистика "
+						TESTTYPE="Екзамен"
+						MARK="89"
+						
+						TYPEMARK="зараховано">
+			</subject>
+			   <subject SUB ="Бази даних та інформаційні системи"
+						TESTTYPE="Екзамен"
+						MARK="90"
+						
+						TYPEMARK="відмінно">
+				</subject>
+				
+				<subject SUB ="Теорія функцій комплексної змінної"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+				</subject>
+			</student>
+        </group>
+		</department> 
+      </speciality>
+	  <speciality  SPEC ="Інформатика" >
+	  <department DEP  ="ТТП">
+        <group GROUP="ТТП-3">
+          <student 
+               NAME="Ящук Софія Юріївна"
+               IDCARD="KNUCB005">
+			<subject 
+						SUB ="Теорія ймовірностей та математична статистика "
+						TESTTYPE="Екзамен"
+						MARK="89"
+						
+						TYPEMARK="зараховано">
+			</subject>
+			   <subject SUB ="ІУК"
+						TESTTYPE="Екзамен"
+						MARK="90"
+						
+						TYPEMARK="відмінно">
+				</subject>
+				
+				<subject SUB ="Теорія функцій комплексної змінної"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+				</subject>
+			</student>
+        </group>
+		</department> 
+      </speciality>
+  </course>
+  	<course COURSE="2">
+      <speciality  SPEC ="Системний Аналіз" >
+	  <department>
+        <group GROUP="K-23">
+          <student 
+               NAME="Запольський Станіслав Володимирович"
+               IDCARD="KNUCB003">
+			
+			   <subject SUB ="Математичний аналіз"
+						TESTTYPE="Екзамен"
+						MARK="90"
+						
+						TYPEMARK="відмінно">
+				</subject>
+				
+				<subject SUB ="Програмування"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+				</subject>
+				
+			</student>
+          
+        </group>
+		</department> 
+      </speciality>
+    </course>
+  </faculty>
+  <faculty  FNAME="ННЦ Інститут біології">
+  <course COURSE="2">
+    <speciality  SPEC ="Біологія" >
+      <department>
+        <group GROUP="1">
+          <student 
+               NAME="Аврамець Діана Сергіївна "
+               IDCARD="KNUIBM001">
+               
+              <subject SUB ="Вступ до університетських студій"
+						TESTTYPE="Залік"
+						MARK="98"
+						
+						TYPEMARK="зараховано">
+				</subject>
+				<subject SUB ="Хімія біоорганічна"
+						TESTTYPE="Екзамен"
+						MARK="90"
+						
+						TYPEMARK="відмінно">
+				</subject>
+				
+          </student>
+          <student
+                NAME="Дудка Анастасія Андріївна"
+                IDCARD="KNUIBM002">
+                <subject SUB ="Вступ до університетських студій"
+						TESTTYPE="Залік"
+						MARK="87"
+						
+						TYPEMARK="зараховано">
+				</subject>
+				<subject SUB ="Хімія біоорганічна"
+						TESTTYPE="Екзамен"
+						MARK="80"
+						
+						TYPEMARK="добре">
+				</subject>
+          </student>
+         </group>
+     </department>
+      </speciality>
+	   </course>
+	   <course COURSE="3">
+    <speciality  SPEC ="Біологія" >
+      <department DEP  ="Генетика">
+        <group GROUP="Г-1">
+          <student 
+               NAME="Генетик1 Діана Сергіївна "
+               IDCARD="KNUIBM001">
+               <subject SUB ="Генетика"
+						TESTTYPE="Екзамен"
+						MARK="65"
+						
+						TYPEMARK="задовільно">
+              </subject>
+				
+          </student>
+		  </group>
+		  <group GROUP="Г-2">
+          <student
+                NAME="Генетик2 Анастасія Андріївна"
+                IDCARD="KNUIBM002">
+				<subject SUB ="Генетика"
+						TESTTYPE="Екзамен"
+						MARK="76"
+						
+						TYPEMARK="добре">
+                </subject>
+          </student>
+         </group>
+     </department>
+      </speciality>
+	   </course>
+      </faculty>
+</studentsDataBase>

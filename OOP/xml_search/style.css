@@ -1,0 +1,66 @@
+body
+	{
+	margin:0;
+	padding:0;
+	font:25px Georgia;
+	color:#000;
+	width:100%;
+	height:100%;
+	}
+	
+article 
+	{	
+	margin: 20px auto;
+	padding:40px;
+	width:840px;
+	height:100%;
+	}
+	
+table 
+	{
+    border-collapse: collapse;
+    width: 800px;
+	table-layout: fixed;
+	border: 0px;
+	text-align: left;
+	}
+
+caption 
+	{
+	font-size:28px;
+	font-weight:bold;
+	}
+	
+tr 
+	{
+	background:#F5F5F5;
+	border-top: 1px dashed  #fff;
+	}
+	
+tr:hover
+	{
+	background: #800000;
+	color: #ffffff;	
+	}
+
+tr:nth-child(2n)
+	{
+	background:#DEDEE5;
+	}
+	
+td
+	{
+	height:15px;
+	padding: 8px;
+    border:0px;
+   	}
+
+
+
+
+
+
+
+
+
+
