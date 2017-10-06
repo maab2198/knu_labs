@@ -4,12 +4,17 @@ import bisect
 from pylab import *
 import matplotlib.pyplot as plt
 
-n=8
-basis=15
-segment=[-2,2]
+
+n=11
+basis=1
+segment=[-1,2]
+
+basis+=1
 
 def function(x):
-    return np.cos(x)
+    #return sin(x)*x
+   #return np.log(x) + 0.5*x
+   return 0.5*(x**3)-0.6*(x**2) +x-1
 
 def spline_builder( node_x, node_y,spline_x):
     a,b, c,d,e,h =[], [], [], [], [],[]
@@ -20,7 +25,7 @@ def spline_builder( node_x, node_y,spline_x):
     for i in range(1,k):
         h.append(x[i]-x[i-1])
 
-    H = calc_matrix(h)
+    H = spline_matrix(h)
 
     e.append(0)
     for i in range(0,k - 2):
@@ -45,9 +50,7 @@ def spline_builder( node_x, node_y,spline_x):
         result.append(a[i] + b[i] * dx +c[i] * dx ** 2.0 +d[i] * dx ** 3.0)
 
     return result
-
-
-def calc_matrix(h):
+def spline_matrix(h):
     nx=len(h)+1
     matrix = np.zeros((nx, nx))
     matrix[0, 0] = 1.0
@@ -62,63 +65,68 @@ def calc_matrix(h):
     matrix[nx - 1, nx - 1] = 1.0
     return matrix
 
-
 def nodes():
     res = np.zeros(n)
     res[0]=segment[0]
+    h=(segment[1]-segment[0])/(n-1)
     for i in range(1,n-1):
-        res[i] = segment[0] + (segment[1] - segment[0] + 0.0) / (n )* (i)
-    res[n-1]=segment[1]
-    print(res)
+        res[i] = segment[0] + h*i
+    res[n-1] = segment[1]
     return res
 
-def MakeSystem (table):
+def ols(table,x):
     matrix = np.zeros((basis, basis))
     e=np.zeros(basis)
+
     for i in range(0,basis):
         for j in range(0,basis):
-            sumA = 0
-            sumB = 0
-            for k in range(0,int(n/2)):
-                 sumA += math.pow(table[0, k], i) * math.pow(table[0, k], j)
-                 sumB += table[1, k] * math.pow(table[0, k], i)
-            matrix[i, j] = sumA
-            e[i]=sumB
+            a = 0
+            b = 0
+            for k in range(0,n):
+                 a += math.pow(table[0, k], i) * math.pow(table[0, k], j)
+                 b += table[1, k] * math.pow(table[0, k], i)
+            matrix[i, j] = a
+            e[i]=b
     c = np.linalg.solve(matrix, e)
-    return c
 
-def podstavit (c,x):
     y=np.zeros(len(x))
     for i in range(0,len(x)):
         for j in range(0,basis):
             y[i]+=c[j]*math.pow(x[i],j)
     return y
 
+
+
 def plot_result():
+
     node_x=nodes()
     node_y= function(node_x)
 
-    funct_x= np.arange(segment[0],segment[1],0.01)
-    funct_y=function(funct_x)
+    x = np.arange(segment[0],segment[1], 0.01)
+
+    funct_y=function(x)
 
     table = np.matrix([node_x,node_y])
-    c=MakeSystem(table)
 
-    spline_x = np.arange(segment[0],segment[1], 0.01)
-    spline_y = spline_builder(node_x,node_y,spline_x)
+#    b=np.polyfit(node_x,node_y,basis-1)
 
-    mnk_x=np.arange(segment[0],segment[1], 0.01)
-    mnk_y=podstavit(c,mnk_x)
+    spline_y = spline_builder(node_x,node_y,x)
 
+ #   pol_y=ols(b[::-1],x)
 
+    ols_y=ols(table,x)
+    plt.plot(x,ols_y, label="g(x)",color='gray')
     plt.plot(node_x,node_y, "o",label="nodes")
+    plt.plot(x,funct_y,label="f(x)",color='red')
+    plt.plot(x,spline_y, label="s(x)",color='green')
 
-    plt.plot(funct_x,funct_y,label="f(x)",color='red')
+    sigma=0
+    ols_y=ols(table,node_x)
+    for i in range(len(node_x)):
+        sigma=sigma+math.pow(node_y[i]-ols_y[i],2)
+    print(round(math.sqrt(sigma/(n+1-basis)),10))
 
-    plt.plot(spline_x,spline_y, label="s(x)",color='green')
-
-
-    plt.plot(mnk_x,mnk_y, label="g(x)",color='gray')
+ #   plt.plot(x,pol_y, label="g(x)",color='orange')
 
     plt.xlabel("x")
     plt.ylabel("y")
