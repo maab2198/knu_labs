@@ -1,0 +1,29 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+  <link href="style.css" rel="stylesheet">
+
+    <meta charset="utf-8"></meta>
+    <title>Tutorial 1: Getting Started</title>
+    <script src="cytoscape.js"></script>
+    
+</head>
+
+
+<body>
+
+    <div id="cy"></div>
+
+
+
+  <div class="load-file">
+    <input type="file" id="file" name="file"/>
+  <output id="fileContents"></output>
+  </div>
+  <p id="fileContents">
+  </p>
+<script src="graph.js"></script>
+</body>
