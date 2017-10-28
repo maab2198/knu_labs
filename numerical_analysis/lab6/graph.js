@@ -51,7 +51,7 @@ console.log(r);
 
 for (; i < r.length; i++) 
 {    ster=r[i].toString().split(' ');
-    var s0=r[i][0].chartAt(0);
+    var s0=ster[0];
     var t0=ster[1];
 var k=r[3].toString();
 console.log(k);
@@ -88,12 +88,13 @@ function handleFileSelect (evt){
     var reader = new FileReader();
     reader.readAsText(file, "UTF-8");
     reader.onload = function (evt) {
-        var textToArray = reader.result.split("\n").map(function(x){return x.split(",")});
+        var textToArray = reader.result.split(/(\W)\b/).filter(function(n){ return n != "\n"&& n!=" " ;}).filter(Boolean);
       n=textToArray[0];
       eps=textToArray[1];
+      console.log(textToArray);
         document.getElementById("fileContents").innerText=reader.result;
         
-        graph_run2(textToArray);
+       // graph_run2(textToArray);
     }
     reader.onerror = function (evt) {
         document.getElementById("fileContents").innerText = "error reading file";
