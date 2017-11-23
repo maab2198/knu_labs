@@ -1,0 +1,45 @@
+body,html {
+  margin: 0;
+  padding: 0;
+}
+#cy {
+        width: 70%;
+        height: 300px;
+        padding:10px;
+        position: relative;
+
+    }
+nav {
+ position: fixed;
+ top:0;
+ right: 0;
+ height: 30px;
+  width: 30%;
+  background: #FFDC00;
+}
+nav  input {
+  display: none;
+}
+nav label {
+  margin-left: 40px; 
+  line-height: 30px;
+  vertical-align: bottom;
+}
+nav label::before {
+  content: " ";
+  position: absolute;
+  top:50%;
+  left:10px;
+  transform: translateY(-50%);
+  width:20px;
+  height: 20px;
+
+  background-color: #000000;
+  border: none;
+  cursor: pointer;
+}
+main {
+
+  border:1px solid red;
+  
+}
