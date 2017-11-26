@@ -13,20 +13,27 @@
 
 
 <body>
-  <nav>
-    <div class="load-file">
-    <label><input type="file" id="file" name="file"  />Открыть файл</label>
-  </div>
+  <nav> 
+
+    <ul>
+    <li><label class=" btn arrow-right-long" tabindex="0"><input type="file" id="file" name="file" ></label></li>
+    <li><button class="btn begin" id="finish"><div class="end"></div></button></li>
+    <li><button class="btn next" id="next"></button></li>
+    <li><button class="btn play" id="play"></button></li>
+    <li><button class="btn show-ranks" id="show-ranks"></button></li>
+    <li><span class="iter"></span></li>
+  </ul>
+  
   </nav>
   <main>
     <div id="cy"></div>
 
-
-
-  
-  <output id="fileContents"></output>
   </div>
 </main>
+<aside  class="fileContents">
+<button class="close"></button>    
+<output></output>
+  </aside>
 <script src="js/cytoscape.js"></script>
 <script src="js/graph.js"></script>
 </body>
