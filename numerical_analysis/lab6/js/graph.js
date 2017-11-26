@@ -41,22 +41,63 @@ function matrix(cy) {
 
     
   });
-  iterator(list_n,ranks);
+  var nw,old,size;
+for (h=1;h<1000;h++) { 
+
+   old=ranks;
+   nw=iterator(list_n,old);
+   ranks=nw;
+   console.log(h);
+   console.log(ranks);
+   var sum=ranks.reduce(function(a, b) {
+  return a + b;
+});
+ 
+    arr.forEach(function(node,i, arr ) {
+      cy.getElementById(node.id()).data('weight',(ranks[i].toExponential(2)).toString());
+      size=(150*ranks[i])/sum;
+      cy.getElementById(node.id()).style('height',size+'%');
+      cy.getElementById(node.id()).style('width',size+'%');
+    });
+
+  
+
+if (stop_cond(old, ranks))  break;
 }
+}
+
+
 
 function iterator(list, ranks) {
         res = [];
-           console.log(list);
-           console.log(ranks);
-        var iteration=0;
-        for(i=0; i < n ; i+=1){
+         
+        for(i=0; i < n ; i++){
             res.push(0);
-           for(j=0; j < n ; j+=1){
+           for(j=0; j < n ; j++){
                 res[i] += list[i][j] * ranks[j];
-              }
-        iteration += 1;
-        console.log(res);
+              }  
+            }
+  return res;
 }
+
+function stop_cond(pr, cr){
+        if(pr.length < 1) {
+            for (i=0;i<cr.length; i++){
+                pr.push(0);
+            }
+            }
+        var step_diff = []
+        for (i=0;i<cr.length; i++) {
+            step_diff.push(Math.abs(cr[i] - pr[i]));//Math.abs()
+          }
+        diff = 0;
+        for (i=0;i<cr.length; i++){
+            if (step_diff[i] > eps)
+                diff += 1;
+            }
+       // prev = cr;
+        if (diff==0) return true;
+        return false;
       }
  /* var a_n = (cy.nodes("#a").neighborhood('node')).length;
   var b_n = (cy.nodes("#b").neighborhood('node')).length;
@@ -75,10 +116,36 @@ var cy = cytoscape({
     {
         selector: 'node',
         style: {
-            shape: 'hexagon',
-            'background-color': 'red',
-            label: 'data(id)'
-        }
+           
+            'content': 'data(id)',
+        
+        'text-valign': 'center',
+        'color': 'white',
+        'text-outline-width': 2,
+        'background-color': '#999',
+        'text-outline-color': '#999',
+        'height': '50%',
+         'width': '50%'
+        }},{
+      selector:'edge',
+      style: {
+        'curve-style': 'bezier',
+        'target-arrow-shape': 'triangle',
+        'target-arrow-color': '#ccc',
+        'width':'3px'
+       
+      }
+    },
+    {
+      selector:'node:selected',
+      style: {
+        'shape':'roundrectangle',
+        'content': 'data(weight)',
+       'background-color': 'black',
+       'text-outline-color': 'black',
+       'width':'60px',
+       height:'60px'
+      }
     }]
 });
 
@@ -87,8 +154,11 @@ for (; i < n; i++)
 { 
     cy.add({
       group: "nodes",
-        data: { id: r[i].toString() }
-           });
+        data: { 
+          id: r[i].toString(),
+          weight: w.toString()
+           }
+         });
 }
 
 
@@ -117,6 +187,7 @@ matrix(cy);
 */
 var eps=0;
 var n=0;
+var w=0;
 var s=document.getElementById('file');
 s.addEventListener('change', handleFileSelect, false);
 
@@ -129,7 +200,8 @@ function handleFileSelect (evt){
       
        
       n=parseInt(textToArray[0]);
-      eps=parseInt(textToArray[1]);
+      w=1/n;
+      eps=Math.pow(10,parseInt(textToArray[1]));
       textToArray.splice(0, 2);
       document.getElementById("fileContents").innerText=reader.result;
         
