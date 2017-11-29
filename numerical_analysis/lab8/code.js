@@ -1,100 +1,63 @@
 var g=9.8;
 var l = document.getElementById('length').value;
-var u =Eu= 0.78;
+var u =Eu= 30*3.14/180;
 var theta=Etheta = 0;
-var h = 0.05;
+var h = 0.01;
 var gndCenterX= 250;
-var gndCenterY= 20;
+var gndCenterY= 50;
+var start;
 
-
-//simplified equations 1
-function thetadot( theta,  u)
+function udot(theta)
 {
-    return u;
+    return theta;
 }
 
-//simplified equations 2
-function udot(theta, u)
+function thetadot(u)
 {
-    return -(g / l) * Math.sin(theta);
+    return -(g / l) * Math.sin(u);
 
 }
 
-/*---------------------------------------------*/
-/* Runge kutta for the theta dot:              */
-/* where thetadot = u                      */
-/*                                             */
-/*---------------------------------------------*/
 function RKt ( u, theta)
 {
-     var thetanext, k1, k2, k3, k4;   
-     k1=thetadot(theta,u);
-     k2=thetadot(theta+ 0.5 * h , u + 0.5 * h * k1);
-     k3=thetadot(theta+ 0.5 * h , u + 0.5 * h * k2);
-     k4=thetadot(theta+h, u + h * k3);
-     thetanext = theta + (h / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);    
-     return thetanext;
+     var thetanext, k1, k2, k3, k4;
+     var unext, ku1, ku2, ku3, ku4;  
+     ku1=udot(theta);   
+     k1=thetadot(u);
+console.log(u + (h)*ku1);
+console.log(theta + (h)*k1);
+     ku2=udot(theta + 0.5 * h * k1);
+     k2=thetadot(u + 0.5 * h * ku1);
+
+     ku3=udot(theta + 0.5 * h * k2);
+     k3=thetadot(u + 0.5 * h * ku2);
+
+     ku4=udot(theta + h * k3);
+     k4=thetadot( u + h * ku3);
+     thetanext = theta + (h / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);
+     unext = u +(h / 6.0) * (ku1 + 2 * ku2 + 2 * ku3 + ku4);
+
+     return [unext,thetanext];
 }
 
-function RKu ( u, theta)
-{
-        var unext, k1, k2, k3, k4;   
-     k1=udot(theta,u);
-     k2=udot(theta + 0.5 * h, u + 0.5 * h * k1);
-     k3=udot(theta + 0.5 * h, u + 0.5 * h * k2);
-     k4=udot(theta + h , u + h * k3);
-     unext = u +(h / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);    
-     return unext;
-}
+
 function  drawRungeKutta() {
- 
-    var oldtheta=theta;
+    [u,theta]=RKt(u,theta+h);; 
+    console.log(u)  ; 
+    console.log(theta)  ;     
 
-    theta=RKt(u,oldtheta);
-    var oldu=u;
-    u=RKu(u,oldtheta);
+    var updatedX = gndCenterX + l*100*2*Math.sin(theta);
+    var updatedY = gndCenterY + l*100*2*Math.cos(theta);
 
-console.log(u);
-console.log(theta);
+    var line = document.getElementById("runge-line");
+    var circle = document.getElementById("runge-circle");
 
-   var updatedX = gndCenterX + l*100*2*Math.sin(theta);
-   var updatedY = gndCenterY + l*100*2*Math.cos(theta);
-
-  var line = document.getElementById("runge-line");
-  var circle = document.getElementById("runge-circle");
     line.setAttribute("x2",updatedX);
     line.setAttribute("y2",updatedY);
     circle.setAttribute("cx",updatedX);
     circle.setAttribute("cy",updatedY);
- 
+} 
 
-    
-}
-//document.querySelector("line").y2 = updatedY;
- 
-
-var start
-document.getElementById('runge-kutta-form').onsubmit = function (event) {
-    event.preventDefault();
-
-    i=0;
-      start=setInterval(function() { 
-        console.log(i);  
-        drawRungeKutta(); 
-        drawEuler();
-        i++;
-
-        }, 50);
-      
-
-};
-document.onload =set_length();
-document.querySelector('.stop').onclick =function (event) {
-    event.preventDefault();
-    clearTimeout(start);
-}
-
-document.getElementById('length').oninput= set_length();
 function set_length() {
 
   var line = document.getElementById("runge-line");
@@ -102,8 +65,8 @@ function set_length() {
     line.setAttribute("y1",50);
     line.setAttribute("y2",document.getElementById('length').value*200);
     circle.setAttribute("cy",document.getElementById('length').value*200);
-  line = document.getElementById("euler-line");
-  circle = document.getElementById("euler-circle");
+    line = document.getElementById("euler-line");
+    circle = document.getElementById("euler-circle");
     line.setAttribute("y1",50);
     line.setAttribute("y2",document.getElementById('length').value*200);
     circle.setAttribute("cy",document.getElementById('length').value*200);
@@ -112,23 +75,46 @@ function set_length() {
 
 
 function  drawEuler() {
-    var Eoldtheta=Etheta;
-    Etheta=Eoldtheta + h * thetadot(Eoldtheta,Eu);
-    Eu = Eu + h *udot(Eoldtheta,Eu);
 
-console.log(Eu);
-console.log(Etheta);
-   var EupdatedX = gndCenterX + l*100*2*Math.sin(Eoldtheta);
-   var EupdatedY = gndCenterY + l*100*2*Math.cos(Eoldtheta);
-  //document.getElementById("M").style.left = updatedX+200+'px';
+    var k =0, ku =0;
+     Etheta+=h;  
+     ku=udot(Etheta);   
+     k=thetadot(Eu);
+     Etheta = Etheta + (h) * (k);
+     Eu = Eu +(h) * (ku);
+console.log(Eu)  ; 
+console.log(Etheta)  ;
 
-  var line = document.getElementById("euler-line");
-  var circle = document.getElementById("euler-circle");
+    var EupdatedX = gndCenterX + l*100*2*Math.sin(Etheta);
+    var EupdatedY = gndCenterY + l*100*2*Math.cos(Etheta);
+
+    var line = document.getElementById("euler-line");
+    var circle = document.getElementById("euler-circle");
+    
     line.setAttribute("x2",EupdatedX);
     line.setAttribute("y2",EupdatedY);
     circle.setAttribute("cx",EupdatedX);
-    circle.setAttribute("cy",EupdatedY);
- 
-
-    
+    circle.setAttribute("cy",EupdatedY);   
 }
+
+
+document.getElementById('runge-kutta-form').onsubmit = function (event) {
+    event.preventDefault();
+
+    i=0;
+    start=setInterval(function() { 
+        console.log(i);  
+        drawRungeKutta(); 
+        drawEuler();
+        i++;
+      }, 80);
+};
+
+document.onload =set_length();
+document.querySelector('.stop').onclick =function (event) {
+    event.preventDefault();
+    clearTimeout(start);
+}
+
+document.getElementById('length').oninput= set_length();
+
