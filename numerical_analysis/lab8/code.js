@@ -21,11 +21,11 @@ function thetadot(u)
 function RKt ( u, theta)
 {
      var thetanext, k1, k2, k3, k4;
-     var unext, ku1, ku2, ku3, ku4;  
+     var unext, ku1, ku2, ku3, ku4;
+
      ku1=udot(theta);   
      k1=thetadot(u);
-console.log(u + (h)*ku1);
-console.log(theta + (h)*k1);
+
      ku2=udot(theta + 0.5 * h * k1);
      k2=thetadot(u + 0.5 * h * ku1);
 
@@ -34,6 +34,7 @@ console.log(theta + (h)*k1);
 
      ku4=udot(theta + h * k3);
      k4=thetadot( u + h * ku3);
+
      thetanext = theta + (h / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);
      unext = u +(h / 6.0) * (ku1 + 2 * ku2 + 2 * ku3 + ku4);
 
@@ -42,10 +43,12 @@ console.log(theta + (h)*k1);
 
 
 function  drawRungeKutta() {
-    [u,theta]=RKt(u,theta+h);; 
-    console.log(u)  ; 
-    console.log(theta)  ;     
-
+    [u,theta]=RKt(u,theta+h);
+    if (i%100==0) {  
+      console.log(i); 
+    console.log(u)  ;
+    console.log(theta)  ;
+}
     var updatedX = gndCenterX + l*100*2*Math.sin(theta);
     var updatedY = gndCenterY + l*100*2*Math.cos(theta);
 
@@ -65,6 +68,7 @@ function set_length() {
     line.setAttribute("y1",50);
     line.setAttribute("y2",document.getElementById('length').value*200);
     circle.setAttribute("cy",document.getElementById('length').value*200);
+
     line = document.getElementById("euler-line");
     circle = document.getElementById("euler-circle");
     line.setAttribute("y1",50);
@@ -81,10 +85,11 @@ function  drawEuler() {
      ku=udot(Etheta);   
      k=thetadot(Eu);
      Etheta = Etheta + (h) * (k);
-     Eu = Eu +(h) * (ku);
+     Eu = Eu +(h) * Etheta;
+if (i%100==0) {    
 console.log(Eu)  ; 
 console.log(Etheta)  ;
-
+}
     var EupdatedX = gndCenterX + l*100*2*Math.sin(Etheta);
     var EupdatedY = gndCenterY + l*100*2*Math.cos(Etheta);
 
@@ -97,17 +102,17 @@ console.log(Etheta)  ;
     circle.setAttribute("cy",EupdatedY);   
 }
 
-
+i=0;
 document.getElementById('runge-kutta-form').onsubmit = function (event) {
     event.preventDefault();
 
-    i=0;
+    
     start=setInterval(function() { 
-        console.log(i);  
+         
         drawRungeKutta(); 
         drawEuler();
         i++;
-      }, 80);
+      }, 0);
 };
 
 document.onload =set_length();

@@ -32,11 +32,11 @@ function go (play,next){
   var nw,old,size;
 
 
-  for (;clicks<1000;clicks++) { 
+  while (true) { 
    
 
 
-
+clicks++
 old=ranks;
    nw=iterator(list_n,old);
 
@@ -243,6 +243,7 @@ document.querySelector("#finish").addEventListener("click", function(event) {
       matrix(cy);
       clicks += 1;
       go(false,false);
+      console.log(list_n)
     });
 
 document.querySelector("#play").addEventListener("click", function(event) {
